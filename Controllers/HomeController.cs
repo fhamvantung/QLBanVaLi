@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers;
 
@@ -79,6 +80,14 @@ public class HomeController : Controller
         var anhSanPham = db.TAnhSps.Where(x => x.MaSp == maSp).ToList();
         ViewBag.anhSanPham = anhSanPham;
         return View(sanPham);
+    }
+
+    public IActionResult ProductDetail(string maSp)
+    {
+        var sanPham = db.TDanhMucSps.SingleOrDefault(x => x.MaSp == maSp);
+        var anhSanPham = db.TAnhSps.Where(x => x.MaSp == maSp).ToList();
+        var homeProductDetailViewModel = new HomeProductDetailViewModel { danhMucSp = sanPham, anhSps = anhSanPham };
+        return View(homeProductDetailViewModel);
     }
     public IActionResult Privacy()
     {
