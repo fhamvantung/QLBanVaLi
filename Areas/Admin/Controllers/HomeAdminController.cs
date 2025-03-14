@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
 using System.Diagnostics;
+using AspNetCoreGeneratedDocument;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApp.Areas.Admin.Controllers
 {
@@ -47,6 +49,36 @@ namespace WebApp.Areas.Admin.Controllers
             ViewBag.TotalPages = totalPages;
 
             return View(pagedProducts);
+        }
+
+        [Route("ThemSanPhamMoi")]
+        [HttpGet]
+        public IActionResult Create()
+        {
+            // Console.WriteLine("Đã vào form thêm sản phẩm mới.");
+            ViewBag.MaChatLieu = new SelectList(db.TChatLieus.ToList(), "MaChatLieu", "ChatLieu");
+            ViewBag.MaHangSX = new SelectList(db.THangSxes.ToList(), "MaHangSx", "HangSx");
+            ViewBag.MaNuocSX = new SelectList(db.TQuocGia.ToList(), "MaNuoc", "TenNuoc");
+            ViewBag.MaLoai = new SelectList(db.TLoaiSps.ToList(), "MaLoai", "Loai");
+            ViewBag.MaDt = new SelectList(db.TLoaiDts.ToList(), "MaDt", "TenLoai");
+            return View();
+        }
+
+        [Route("ThemSanPhamMoi")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(TDanhMucSp sanPham)
+        {
+            // Console.WriteLine("Người dùng đã bấm nút Create.");
+            if (ModelState.IsValid)
+            {
+                db.TDanhMucSps.Add(sanPham);
+                db.SaveChanges();
+                // Console.WriteLine("Sản phẩm đã được lưu vào database.");
+                return RedirectToAction("DanhMucSanPham");
+            }
+            // Console.WriteLine("Dữ liệu không hợp lệ, quay lại form.");
+            return View(sanPham);
         }
 
     }
