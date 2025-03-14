@@ -135,3 +135,4 @@ D:\CODE\WebApp\obj\Debug\net8.0\refint\WebApp.dll
 D:\CODE\WebApp\obj\Debug\net8.0\WebApp.pdb
 D:\CODE\WebApp\obj\Debug\net8.0\WebApp.genruntimeconfig.cache
 D:\CODE\WebApp\obj\Debug\net8.0\ref\WebApp.dll
+D:\CODE\WebApp\obj\Debug\net8.0\WebApp.sourcelink.json

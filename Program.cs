@@ -1,11 +1,15 @@
 using WebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using WebApp.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<QLBanVaLiContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("QLBanVaLiContext")));
+
+
+builder.Services.AddScoped<ILoaiSpRepository, LoaiSpRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
