@@ -1,8 +1,10 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/Ogani.cshtml";
 }
 @model List<TDanhMucSp>
+
+
 
 @foreach (var item in Model)
 {
@@ -23,14 +25,14 @@
         </div>
     </div>
 }
-
 <nav aria-label="Điều hướng trang">
     <ul class="pagination">
         <!-- Liên kết trang trước -->
         @if (ViewBag.CurrentPage > 1)
         {
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)">Prev</a>
+                <a class="page-link" asp-action="SanPhamTheoLoai" asp-route-maloai="@ViewBag.MaLoai"
+                    asp-route-page="@(ViewBag.CurrentPage - 1)">Prev</a>
             </li>
         }
 
@@ -38,7 +40,8 @@
         @for (int i = 1; i <= ViewBag.TotalPages; i++)
         {
             <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                <a class="page-link" asp-action="SanPhamTheoLoai" asp-route-maloai="@ViewBag.MaLoai"
+                    asp-route-page="@i">@i</a>
             </li>
         }
 
@@ -46,10 +49,9 @@
         @if (ViewBag.CurrentPage < ViewBag.TotalPages)
         {
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)">Next</a>
+                <a class="page-link" asp-action="SanPhamTheoLoai" asp-route-maloai="@ViewBag.MaLoai"
+                    asp-route-page="@(ViewBag.CurrentPage + 1)">Next</a>
             </li>
         }
     </ul>
 </nav>
-
-</div>

@@ -40,6 +40,38 @@ public class HomeController : Controller
     }
 
 
+    // public IActionResult SanPhamTheoLoai(string maloai)
+    // {
+    //     List<TDanhMucSp> lstsanpham = db.TDanhMucSps.Where(x => x.MaLoai == maloai).OrderBy(x => x.TenSp).ToList();
+
+    //     return View(lstsanpham);
+    // }
+
+    public IActionResult SanPhamTheoLoai(string maloai, int? page)
+    {
+        int pageSize = 8;
+        // int pageNumber = page.GetValueOrDefault(1); // Nếu page là null, mặc định là 1
+        // pageNumber = pageNumber < 1 ? 1 : pageNumber;
+        int pageNumber = (page == null || page < 1) ? 1 : page.Value;
+        var query = db.TDanhMucSps
+                      .AsNoTracking()
+                      .Where(x => x.MaLoai == maloai)
+                      .OrderBy(x => x.TenSp);
+
+        int totalProducts = query.Count();
+        int totalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
+
+        var pagedProducts = query
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+        // Truyền thông tin phân trang vào View
+        ViewBag.CurrentPage = pageNumber;
+        ViewBag.TotalPages = totalPages;
+        ViewBag.MaLoai = maloai;
+        return View(pagedProducts);
+    }
     public IActionResult Privacy()
     {
         return View();
