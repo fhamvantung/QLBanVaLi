@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
 using WebApp.ViewModels;
+using WebApp.Models.Authentication;
 
 namespace WebApp.Controllers;
 
@@ -15,6 +16,8 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
+
+    [Authentication]
 
     public IActionResult Index(int? page)
     {

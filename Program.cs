@@ -10,7 +10,7 @@ builder.Services.AddDbContext<QLBanVaLiContext>(options =>
 
 
 builder.Services.AddScoped<ILoaiSpRepository, LoaiSpRepository>();
-
+builder.Services.AddSession();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -30,9 +30,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Access}/{action=Login}/{id?}");
 
 app.Run();
