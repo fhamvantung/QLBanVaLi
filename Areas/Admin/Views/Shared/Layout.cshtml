@@ -1,3 +1,4 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 <html lang="en">
 
@@ -226,8 +227,8 @@
                         </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="../../LayoutAdmin/pages/ui-features/buttons.html"> Danh mục sản phẩm </a>
+                                <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="HomeAdmin"
+                                        asp-action="DanhMucSanPham"> Danh mục sản phẩm </a>
                                 </li>
                                 <li class="nav-item"> <a class="nav-link"
                                         href="../../LayoutAdmin/pages/ui-features/typography.html">Typography</a></li>
