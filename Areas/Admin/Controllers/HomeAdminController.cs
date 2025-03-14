@@ -113,5 +113,25 @@ namespace WebApp.Areas.Admin.Controllers
             return View(sanPham);
         }
 
+        [Route("XoaSanPham")]
+        [HttpGet]
+        public IActionResult Delete(string maSanPham)
+        {
+            // Console.Write("Hàm xóa được gọi");
+            TempData["Message"] = "";
+            var chiTietSanPhams = db.TChiTietSanPhams.Where(x => x.MaSp == maSanPham).ToList();
+            if (chiTietSanPhams.Count() > 0)
+            {
+                TempData["Message"] = "Không xóa được sản phẩm này";
+                return RedirectToAction("DanhMucSanPham", "HomeAdmin");
+            }
+            var anhSanPhams = db.TAnhSps.Where(x => x.MaSp == maSanPham).ToList();
+            if (anhSanPhams.Any()) db.RemoveRange(anhSanPhams);
+            db.Remove(db.TDanhMucSps.Find(maSanPham));
+            db.SaveChanges();
+            TempData["Message"] = "Đã xóa sản phẩm này";
+            return RedirectToAction("DanhMucSanPham", "HomeAdmin");
+        }
+
     }
 }
