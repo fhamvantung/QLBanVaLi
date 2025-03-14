@@ -81,5 +81,37 @@ namespace WebApp.Areas.Admin.Controllers
             return View(sanPham);
         }
 
+        [Route("SuaSanPhamMoi")]
+        [HttpGet]
+        public IActionResult Edit(string maSanPham)
+        {
+            // Console.WriteLine("Đã vào form sửa sản phẩm .");
+            ViewBag.MaChatLieu = new SelectList(db.TChatLieus.ToList(), "MaChatLieu", "ChatLieu");
+            ViewBag.MaHangSX = new SelectList(db.THangSxes.ToList(), "MaHangSx", "HangSx");
+            ViewBag.MaNuocSX = new SelectList(db.TQuocGia.ToList(), "MaNuoc", "TenNuoc");
+            ViewBag.MaLoai = new SelectList(db.TLoaiSps.ToList(), "MaLoai", "Loai");
+            ViewBag.MaDt = new SelectList(db.TLoaiDts.ToList(), "MaDt", "TenLoai");
+            var sanPham = db.TDanhMucSps.Find(maSanPham);
+            return View(sanPham);
+        }
+
+        [Route("SuaSanPhamMoi")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(TDanhMucSp sanPham)
+        {
+            // Console.WriteLine("Người dùng đã bấm nút Edit.");
+            if (ModelState.IsValid)
+            {
+                db.TDanhMucSps.Update(sanPham);
+                // db.Entry(sanPham).State = EntityState.Modified; cách 2
+                db.SaveChanges();
+                // Console.WriteLine("Sản phẩm đã được lưu vào database.");
+                return RedirectToAction("DanhMucSanPham", "HomeAdmin");
+            }
+            // Console.WriteLine("Dữ liệu không hợp lệ, quay lại form.");
+            return View(sanPham);
+        }
+
     }
 }

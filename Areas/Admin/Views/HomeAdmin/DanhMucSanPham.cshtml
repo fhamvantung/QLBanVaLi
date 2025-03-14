@@ -74,7 +74,7 @@
                     @Html.DisplayFor(modelItem => item.GiaNhoNhat)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaSp" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Edit" asp-route-maSanPham="@item.MaSp" class="btn btn-warning btn-sm">Edit</a>
                     <a asp-action="Detail" asp-route-id="@item.MaSp" class="btn btn-info btn-sm">Detail</a>
                     <a asp-action="Delete" asp-route-id="@item.MaSp" class="btn btn-danger btn-sm">Delete</a>
                 </td>
