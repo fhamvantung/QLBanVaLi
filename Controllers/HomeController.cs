@@ -17,7 +17,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    [Authentication]
+    // [Authentication]
 
     public IActionResult Index(int? page)
     {
